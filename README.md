@@ -17,3 +17,10 @@ Disposable GKE platform experiments on Google Cloud.
 - `apps/` — workload source
 - `scripts/` — lifecycle helpers
 - `docs/` — cost ledger, security notes, and runbook
+
+## Local security checks
+
+Install Gitleaks, then enable the repository hook:
+
+```bash
+./scripts/setup-hooks.sh
