@@ -10,9 +10,9 @@ resource "google_container_node_pool" "dev_spot" {
   }
 
   node_config {
-    machine_type = "e2-standard-2"
-    spot         = true
+    machine_type    = "e2-standard-2"
+    spot            = true
     service_account = google_service_account.node.email
-    oauth_scopes = ["https://www.googleapis.com/auth/cloud-platform"]
+    oauth_scopes    = ["https://www.googleapis.com/auth/cloud-platform"]
   }
 }
