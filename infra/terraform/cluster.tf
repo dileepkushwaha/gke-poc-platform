@@ -1,6 +1,6 @@
 resource "google_container_cluster" "dev" {
   name            = "gke-poc-dev"
-  location        = "var.zone"
+  location        = var.zone
   network         = module.vpc.network_id
   subnetwork      = module.vpc.subnet_id
   networking_mode = "VPC_NATIVE"
@@ -15,6 +15,10 @@ resource "google_container_cluster" "dev" {
   remove_default_node_pool = true
   initial_node_count       = 1
 
+  node_config {
+    service_account = google_service_account.node.email
+    oauth_scopes    = ["https://www.googleapis.com/auth/cloud-platform"]
+  }
   release_channel {
     channel = "REGULAR"
   }
