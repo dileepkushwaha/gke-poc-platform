@@ -16,8 +16,6 @@ spec:
         server:
           dev:
             enabled: true
-          auditStorage:
-            enabled: true
         injector:
           enabled: true
   destination:
@@ -29,4 +27,3 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
-
