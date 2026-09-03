@@ -1,5 +1,5 @@
 resource "google_container_node_pool" "dev_spot" {
-  name       = "dev-spot"
+  name       = "${var.environment}-spot"
   cluster    = google_container_cluster.dev.id
   location   = var.zone
   node_count = 2

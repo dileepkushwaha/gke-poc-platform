@@ -17,3 +17,6 @@ variable "authorized_networks_cidr" {
 }
 
 
+variable "environment" {
+  type = string
+}

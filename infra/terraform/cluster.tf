@@ -1,5 +1,5 @@
 resource "google_container_cluster" "dev" {
-  name            = "gke-poc-dev"
+  name            = "${var.environment}-cluster"
   location        = var.zone
   network         = module.vpc.network_id
   subnetwork      = module.vpc.subnet_id

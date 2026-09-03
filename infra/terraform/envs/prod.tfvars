@@ -1,0 +1,5 @@
+project_id               = "gke-poc-dileep"
+environment              = "gke-poc-prod"
+region                   = "us-central1"
+zone                     = "us-central1-a"
+authorized_networks_cidr = "49.43.117.186/32"
