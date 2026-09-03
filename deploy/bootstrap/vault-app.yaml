@@ -12,8 +12,14 @@ spec:
     chart: vault
     targetRevision: 0.34.1
     helm:
-      valueFiles:
-        - $values/platform/vault/values-dev.yaml
+      values: |
+        server:
+          dev:
+            enabled: true
+          auditStorage:
+            enabled: true
+        injector:
+          enabled: true
   destination:
     server: https://kubernetes.default.svc
     namespace: vault
