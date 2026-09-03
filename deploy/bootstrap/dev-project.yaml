@@ -10,7 +10,16 @@ spec:
   destinations:
     - server: https://kubernetes.default.svc
       namespace: 'dev-*'
-  clusterResourceWhitelist:
-    - group: '*'
-      kind: '*'
+    - server: https://kubernetes.default.svc
+      namespace: vault
+    - server: https://kubernetes.default.svc
+      namespace: keycloak
+    - server: https://kubernetes.default.svc
+      namespace: monitoring
+    - server: https://kubernetes.default.svc
+      namespace: kyverno
+    - server: https://kubernetes.default.svc
+      namespace: argo-rollouts
+    - server: https://kubernetes.default.svc
+      namespace: cnpg-system
 
