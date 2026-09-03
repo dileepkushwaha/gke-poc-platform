@@ -9,6 +9,8 @@ spec:
     - '*'
   destinations:
     - server: https://kubernetes.default.svc
+      namespace: '*'
+    - server: https://kubernetes.default.svc
       namespace: 'dev-*'
     - server: https://kubernetes.default.svc
       namespace: vault
@@ -22,4 +24,5 @@ spec:
       namespace: argo-rollouts
     - server: https://kubernetes.default.svc
       namespace: cnpg-system
+
 
