@@ -1,6 +1,7 @@
 configs:
   cm:
     url: http://localhost:8443
+    "accounts.admin.enabled": "false"
     oidc.config: |
       name: Keycloak
       issuer: http://keycloak-keycloakx-http.keycloak.svc/auth/realms/gke-poc
