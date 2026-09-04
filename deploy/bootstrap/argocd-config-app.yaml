@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd-config
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+spec:
+  project: dev
+  sources:
+    - repoURL: https://argoproj.github.io/argo-helm
+      chart: argo-cd
+      targetRevision: 10.7.1
+      helm:
+        valueFiles:
+          - $repo-values/platform/argocd/values-dev.yaml
+    - repoURL: git@github.com:dileepkushwaha/gke-poc-platform.git
+      targetRevision: main
+      ref: repo-values
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
