@@ -12,7 +12,6 @@ configs:
           essential: true
   params:
     server.insecure: "true"
-    server.log.level: debug
   rbac:
     policy.csv: |
       g, platform-admins, role:admin
