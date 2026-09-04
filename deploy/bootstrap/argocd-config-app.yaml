@@ -12,6 +12,7 @@ spec:
       chart: argo-cd
       targetRevision: 10.7.1
       helm:
+        releaseName: argocd
         valueFiles:
           - $repo-values/platform/argocd/values-dev.yaml
     - repoURL: git@github.com:dileepkushwaha/gke-poc-platform.git
