@@ -13,6 +13,7 @@ configs:
           essential: true
   params:
     server.insecure: "true"
+    admin.enabled: "false"
   rbac:
     policy.csv: |
       g, platform-admins, role:admin
