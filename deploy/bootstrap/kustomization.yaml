@@ -3,5 +3,6 @@ kind: Kustomization
 resources:
   - argocd-admin-sealed.yaml
   - vault-app.yaml
+  - keycloak-app.yaml
   - dev-project.yaml
   - prod-project.yaml
