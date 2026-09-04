@@ -1,0 +1,31 @@
+server:
+  extraVolumes:
+    - name: vault-oidc-secret
+      emptyDir: {}
+  extraVolumeMounts:
+    - name: vault-oidc-secret
+      mountPath: /vault/secrets
+      readOnly: false
+  config:
+    url: https://localhost:8443
+    oidc.config: |
+      name: Keycloak
+      issuer: http://keycloak-keycloakx-http.keycloak.svc:80/realms/gke-poc
+      clientID: argocd
+      clientSecretPath: /vault/secrets/oidc-secret
+      requestedScopes: ["openid", "profile", "email", "groups"]
+      requestedIDTokenClaims: {"groups": {"essential": true}}
+      logoutURL: http://localhost:8080/realms/gke-poc/protocol/openid-connect/logout?id_token_hint={{id_token}}
+  rbacConfig:
+    policy.csv: |
+      g, platform-admins, role:admin
+      g, viewers, role:readonly
+    policy.default: role:readonly
+  service:
+    type: ClusterIP
+  insecure: true
+
+configs:
+  params:
+    server.insecure: true
+

@@ -6,3 +6,4 @@ resources:
   - keycloak-app.yaml
   - dev-project.yaml
   - prod-project.yaml
+  - argocd-config-app.yaml
