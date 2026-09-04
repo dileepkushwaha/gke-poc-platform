@@ -27,5 +27,5 @@ server:
     vault.hashicorp.com/agent-inject-secret-oidc-secret: "secret/data/argocd-oidc"
     vault.hashicorp.com/agent-inject-template-oidc-secret: |
       {{- with secret "secret/data/argocd-oidc" -}}
-      {{ .Data.data.client-secret }}
+      {{- .Data.data.client-secret -}}
       {{- end -}}
