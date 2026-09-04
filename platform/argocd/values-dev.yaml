@@ -3,7 +3,7 @@ configs:
     url: http://localhost:8443
     oidc.config: |
       name: Keycloak
-      issuer: http://keycloak-keycloakx-http.keycloak.svc:80/auth/realms/gke-poc
+      issuer: http://keycloak-keycloakx-http.keycloak.svc/auth/realms/gke-poc
       clientID: argocd
       clientSecretPath: /vault/secrets/oidc-secret
       requestedScopes: ["openid", "profile", "email", "groups"]
