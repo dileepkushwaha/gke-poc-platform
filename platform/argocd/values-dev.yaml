@@ -29,10 +29,3 @@ server:
       {{- with secret "secret/data/argocd-oidc" -}}
       {{ .Data.data.client-secret }}
       {{- end -}}
-  volumes:
-    - name: vault-secrets
-      emptyDir: {}
-  volumeMounts:
-    - name: vault-secrets
-      mountPath: /vault/secrets
-      readOnly: false
