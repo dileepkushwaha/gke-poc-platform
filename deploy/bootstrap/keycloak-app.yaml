@@ -1,0 +1,43 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: keycloak
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  project: dev
+  source:
+    repoURL: https://codecentric.github.io/helm-charts
+    chart: keycloakx
+    targetRevision: 7.3.1
+    helm:
+      values: |
+        replicas: 1
+        command:
+          - /bin/sh
+          - -c
+          - |
+            export KC_BOOTSTRAP_ADMIN_PASSWORD="$(cat /vault/secrets/admin)"
+            exec /opt/keycloak/bin/kc.sh start-dev
+        extraEnv: |
+          - name: KC_BOOTSTRAP_ADMIN_USERNAME
+            value: admin
+        podAnnotations:
+          vault.hashicorp.com/agent-inject: "true"
+          vault.hashicorp.com/role: "keycloak"
+          vault.hashicorp.com/agent-inject-secret-admin: "secret/data/keycloak-admin"
+          vault.hashicorp.com/agent-inject-template-admin: |
+            {{- with secret "secret/data/keycloak-admin" -}}
+            {{- .Data.data.admin -}}
+            {{- end -}}
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: keycloak
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+
