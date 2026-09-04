@@ -5,13 +5,14 @@ configs:
       name: Keycloak
       issuer: http://keycloak-keycloakx-http.keycloak.svc/auth/realms/gke-poc
       clientID: argocd
-      clientSecretPath: /vault/secrets/oidc-secret
+      clientSecret: $oidc.keycloak.clientSecret
       requestedScopes: ["openid", "profile", "email", "groups"]
       requestedIDTokenClaims:
         groups:
           essential: true
   params:
     server.insecure: "true"
+    server.log.level: debug
   rbac:
     policy.csv: |
       g, platform-admins, role:admin
