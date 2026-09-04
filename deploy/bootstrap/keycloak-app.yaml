@@ -24,13 +24,13 @@ spec:
           - name: KC_BOOTSTRAP_ADMIN_USERNAME
             value: admin
         podAnnotations:
-        vault.hashicorp.com/agent-inject: "true"
-        vault.hashicorp.com/role: "keycloak"
-        vault.hashicorp.com/agent-inject-secret-admin: "secret/data/keycloak-admin"
-        vault.hashicorp.com/agent-inject-template-admin: |
-          {{ "{{" }} with secret "secret/data/keycloak-admin" {{ "}}" }}
-          {{ "{{" }} .Data.data.admin {{ "}}" }}
-          {{ "{{" }} end {{ "}}" }}
+          vault.hashicorp.com/agent-inject: "true"
+          vault.hashicorp.com/role: "keycloak"
+          vault.hashicorp.com/agent-inject-secret-admin: "secret/data/keycloak-admin"
+          vault.hashicorp.com/agent-inject-template-admin: |
+            {{ "{{" }} with secret "secret/data/keycloak-admin" {{ "}}" }}
+            {{ "{{" }} .Data.data.admin {{ "}}" }}
+            {{ "{{" }} end {{ "}}" }}
   destination:
     server: https://kubernetes.default.svc
     namespace: keycloak
