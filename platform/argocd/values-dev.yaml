@@ -1,31 +1,38 @@
-server:
-  extraVolumes:
-    - name: vault-oidc-secret
-      emptyDir: {}
-  extraVolumeMounts:
-    - name: vault-oidc-secret
-      mountPath: /vault/secrets
-      readOnly: false
-  config:
-    url: https://localhost:8443
+configs:
+  cm:
+    url: http://localhost:8443
     oidc.config: |
       name: Keycloak
       issuer: http://keycloak-keycloakx-http.keycloak.svc:80/realms/gke-poc
       clientID: argocd
       clientSecretPath: /vault/secrets/oidc-secret
       requestedScopes: ["openid", "profile", "email", "groups"]
-      requestedIDTokenClaims: {"groups": {"essential": true}}
-      logoutURL: http://localhost:8080/realms/gke-poc/protocol/openid-connect/logout?id_token_hint={{id_token}}
-  rbacConfig:
+      requestedIDTokenClaims:
+        groups:
+          essential: true
+  params:
+    server.insecure: "true"
+  rbac:
     policy.csv: |
       g, platform-admins, role:admin
       g, viewers, role:readonly
     policy.default: role:readonly
+
+server:
   service:
     type: ClusterIP
-  insecure: true
-
-configs:
-  params:
-    server.insecure: true
-
+  podAnnotations:
+    vault.hashicorp.com/agent-inject: "true"
+    vault.hashicorp.com/role: "argocd-server"
+    vault.hashicorp.com/agent-inject-secret-oidc-secret: "secret/data/argocd-oidc"
+    vault.hashicorp.com/agent-inject-template-oidc-secret: |
+      {{- with secret "secret/data/argocd-oidc" -}}
+      {{ .Data.data.client-secret }}
+      {{- end -}}
+  volumes:
+    - name: vault-secrets
+      emptyDir: {}
+  volumeMounts:
+    - name: vault-secrets
+      mountPath: /vault/secrets
+      readOnly: false
