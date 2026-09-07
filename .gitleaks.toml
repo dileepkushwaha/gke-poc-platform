@@ -1,0 +1,7 @@
+title = "gitleaks config"
+
+[allowlist]
+  description = "SealedSecret ciphertext is public-safe by design (decrypts only inside the owning cluster)"
+  paths = [
+    '''deploy/bootstrap/argocd-admin-sealed\.yaml''',
+  ]
